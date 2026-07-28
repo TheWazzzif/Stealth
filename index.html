@@ -95,7 +95,7 @@
   .toolbar-item{display:flex;align-items:center;gap:6px;cursor:pointer;}
   .toolbar-item:hover{color:var(--blue);}
 
-  .table-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+  .table-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow-x:auto;}
   .table-toolbar{
     display:flex;align-items:center;gap:18px;padding:12px 16px;border-bottom:1px solid var(--border);
     font-size:12.5px;color:#5b6270;
@@ -121,6 +121,7 @@
   .co-avatar{width:24px;height:24px;border-radius:5px;background:#e3e6ea;display:flex;align-items:center;justify-content:center;font-size:11px;color:#666;flex-shrink:0;overflow:hidden;}
   .co-avatar img{width:100%;height:100%;object-fit:cover;}
   .stealth-pill{background:#eef1f6;color:#555;font-size:10.5px;padding:2px 8px;border-radius:10px;margin-left:4px;display:inline-flex;align-items:center;gap:3px;}
+  .mini-pill{background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px;margin-right:4px;white-space:nowrap;display:inline-block;}
   .dots{color:#b7bcc6;padding:0 4px;}
   .link-blue{color:var(--blue);}
   .first-added{color:var(--blue);}
@@ -244,14 +245,10 @@
   .helpful-row{text-align:center;color:#374151;font-size:13px;padding:8px 0;}
   .trophy-badge{width:34px;height:34px;border:1px solid var(--border);border-radius:6px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;color:#d4a017;}
   .counter-badge{width:34px;height:34px;border:1px solid var(--border);border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#374151;}
-  .achievement-card{
-    display:flex;gap:14px;align-items:flex-start;background:#fffdf5;border:1px solid #f0dca0;border-radius:8px;padding:14px 16px;
+  .achievement-pill{
+    display:inline-block;background:#fffdf5;border:1px solid #f0c74e;border-radius:16px;
+    padding:5px 14px;font-size:12.5px;font-weight:600;color:#7a5b00;
   }
-  .achievement-icon{width:38px;height:38px;border-radius:8px;background:#fff3d6;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-  .achievement-title{font-weight:700;font-size:14px;color:var(--text);}
-  .achievement-desc{font-size:12.5px;color:#5b6270;margin:4px 0 10px;line-height:1.5;}
-  .achievement-reasons{display:flex;flex-wrap:wrap;gap:8px;}
-  .reason-chip{background:#fff;border:1px solid var(--border);border-radius:14px;padding:4px 10px;font-size:11.5px;color:#3d4452;}
 
   #home-view{margin-left:74px;margin-top:52px;padding:20px 24px 60px;}
   .home-grid{display:grid;grid-template-columns:260px 1fr 300px;gap:16px;align-items:start;}
@@ -586,6 +583,13 @@
             <th>Founder Highlights <span style="background:#ffdf6b;color:#7a5b00;font-size:8.5px;font-weight:800;padding:1px 4px;border-radius:3px;">NEW</span></th>
             <th>Founder and Key People</th>
             <th>First Added Date <span class="sort-caret">▾</span></th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+            <th>Postal / ZIP Code (PIN Code)</th>
+            <th>Stealth Status</th>
+            <th>Stealth Emergence Date</th>
+            <th>Team Background</th>
           </tr>
         </thead>
         <tbody id="stealth-rows"></tbody>
@@ -652,17 +656,7 @@
           <div class="highlight-pill"><b>Top College Founder</b><span>Founder studied at a top-tier college</span></div>
 
           <div style="font-weight:700;font-size:14px;margin:18px 0 10px;">Achievements</div>
-          <div class="achievement-card">
-            <div class="achievement-icon">🏆</div>
-            <div>
-              <div class="achievement-title">Team (1)</div>
-              <div class="achievement-desc">This company has a top-tier founding team. This is calculated based on the founder's educational background and prior work experience.</div>
-              <div class="achievement-reasons">
-                <span class="reason-chip">🎓 Top College — Stanford, IIT Bombay</span>
-                <span class="reason-chip">🏢 Top Company — Meta, Google, Apple</span>
-              </div>
-            </div>
-          </div>
+          <div class="achievement-pill">🏅 Team (1)</div>
         </div>
 
         <div class="card" id="co-people-section">
@@ -886,9 +880,11 @@
 
 <script>
   // ---- Build stealth companies table rows ----
+  const flagToCountry = {"🇮🇳":"India","🇺🇸":"United States","🇨🇦":"Canada","🇱🇧":"Lebanon","🇸🇬":"Singapore","🇮🇪":"Ireland","🇪🇸":"Spain","🇬🇧":"United Kingdom","🇹🇼":"Taiwan"};
+
   const rows = [
-    {hero:true, name:"Yogesh M. - Building in Stealth", flag:"🇮🇳", loc:"Gurugram (India)", start:"May 01, 2025", founded:"2025", stage:"Stealth", highlight:"–", people:"Yogesh M.", added:"Jul 26, 2026"},
-    {name:"Michael Herman - Busin...", flag:"🇺🇸", loc:"Portland (United States)", start:"Mar 01, 2026", founded:"2026", stage:"Stealth", highlight:"–", people:"Michael Herman", added:"Jul 26, 2026"},
+    {hero:true, name:"Yogesh M. - Building in Stealth", flag:"🇮🇳", loc:"Gurugram (India)", start:"May 01, 2025", founded:"2025", stage:"Stealth", highlight:"", people:"Yogesh M.", added:"Jul 26, 2026", state:"Haryana", city:"Gurugram", zip:"–", emergence:"May 01, 2025"},
+    {name:"Michael Herman - Busin...", flag:"🇺🇸", loc:"Portland (United States)", start:"Mar 01, 2026", founded:"2026", stage:"Stealth", highlight:"–", people:"Michael Herman", added:"Jul 26, 2026", state:"Oregon", city:"Portland"},
     {name:"Jongsun Lee - Machine L...", flag:"🇺🇸", loc:"United States", start:"Jul 01, 2024", founded:"2024", stage:"Stealth", highlight:"–", people:"–", added:"Jul 26, 2026"},
     {name:"Zachary Scott-Murphy - ...", flag:"🇺🇸", loc:"United States", start:"Jan 01, 2025", founded:"2025", stage:"Stealth", highlight:"–", people:"–", added:"Jul 26, 2026"},
     {name:"Georgiy Kiselev - Artific...", flag:"🇺🇸", loc:"United States", start:"Oct 01, 2024", founded:"2024", stage:"Stealth", highlight:"–", people:"–", added:"Jul 26, 2026"},
@@ -919,6 +915,9 @@
   rows.forEach((r, i) => {
     const tr = document.createElement('tr');
     if (r.hero) tr.className = 'hero-row';
+    const highlightCell = r.hero
+      ? `<span class="mini-pill">Top Company Founder</span> <span class="mini-pill">Top College Founder</span>`
+      : r.highlight;
     tr.innerHTML = `
       <td class="row-num">${i+1}.</td>
       <td>
@@ -934,9 +933,16 @@
       <td>${r.start}</td>
       <td>${r.founded}</td>
       <td>${r.stage}</td>
-      <td>${r.highlight}</td>
+      <td>${highlightCell}</td>
       <td class="${r.hero ? 'link-blue' : ''}">${r.people}</td>
       <td class="first-added">${r.added}</td>
+      <td>${flagToCountry[r.flag] || '–'}</td>
+      <td>${r.state || '–'}</td>
+      <td>${r.city || '–'}</td>
+      <td>${r.zip || '–'}</td>
+      <td>In Stealth</td>
+      <td>${r.emergence || '–'}</td>
+      <td>–</td>
     `;
     if (r.hero) {
       tr.addEventListener('click', () => showView('company'));
