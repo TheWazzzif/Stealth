@@ -579,19 +579,29 @@
      Purple (#6a3fd6) reused again for the same "special/product" association as the demo-spot system.
      Gold (#f7ca18, confirmed real token) marks resolved state - distinct from purple (open/unresolved)
      and from the red notification badges elsewhere (those mean "needs your attention", this means "done"). */
-  @keyframes cmt-btn-pulse{
-    0%{box-shadow:0 0 0 0 rgba(106,63,214,.55),0 6px 20px rgba(80,40,160,.35);}
-    70%{box-shadow:0 0 0 12px rgba(106,63,214,0),0 6px 20px rgba(80,40,160,.35);}
-    100%{box-shadow:0 0 0 0 rgba(106,63,214,0),0 6px 20px rgba(80,40,160,.35);}
+  /* off = grey (still gently pulsing so it stays discoverable); on = orange with a stronger, faster
+     pulse - this is the most important button on the page, so "active" needs to be unmistakable at a glance */
+  @keyframes cmt-btn-pulse-off{
+    0%{box-shadow:0 0 0 0 rgba(107,114,128,.45),0 6px 16px rgba(0,0,0,.2);}
+    70%{box-shadow:0 0 0 10px rgba(107,114,128,0),0 6px 16px rgba(0,0,0,.2);}
+    100%{box-shadow:0 0 0 0 rgba(107,114,128,0),0 6px 16px rgba(0,0,0,.2);}
+  }
+  @keyframes cmt-btn-pulse-on{
+    0%{box-shadow:0 0 0 0 rgba(255,140,0,.65),0 6px 22px rgba(230,90,0,.5);}
+    70%{box-shadow:0 0 0 16px rgba(255,140,0,0),0 6px 22px rgba(230,90,0,.5);}
+    100%{box-shadow:0 0 0 0 rgba(255,140,0,0),0 6px 22px rgba(230,90,0,.5);}
   }
   #comment-mode-btn{
     position:fixed;bottom:90px;right:20px;height:48px;padding:0 18px;border-radius:24px;
-    background:linear-gradient(135deg,#7c4dff,#5a2ed6);color:#fff;display:flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,#8a93a3,#5f6b7a);color:#fff;display:flex;align-items:center;gap:8px;
     font-size:13.5px;font-weight:700;cursor:pointer;z-index:2000;white-space:nowrap;
-    animation:cmt-btn-pulse 2.5s infinite;
+    animation:cmt-btn-pulse-off 2.5s infinite;
   }
   #comment-mode-btn i{font-size:17px;}
-  #comment-mode-btn.active{background:linear-gradient(135deg,#5a2ed6,#3d1f96);}
+  #comment-mode-btn.active{
+    background:linear-gradient(135deg,#ff8a3d,#e8590c);
+    animation:cmt-btn-pulse-on 1.6s infinite;
+  }
   #comment-total-badge{
     position:absolute;top:-6px;right:-6px;background:#e63946;color:#fff;font-size:10px;font-weight:700;
     border-radius:10px;padding:2px 6px;min-width:14px;text-align:center;line-height:1.4;
@@ -2652,6 +2662,16 @@
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
+  // Apps Script serializes Timestamp as a raw ISO string (e.g. "2026-07-30T08:54:33.813Z") - format it
+  // into the viewer's local time, matching the "Mon DD, YYYY" style used for dates elsewhere in this file.
+  function formatTimestamp(ts) {
+    const d = new Date(ts);
+    if (isNaN(d.getTime())) return ts;
+    const datePart = d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+    const timePart = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return datePart + ', ' + timePart;
+  }
+
   function screenFromElementId(id) {
     const top = id.split('.')[0];
     return ({home:'Homepage', list:'Stealth List', company:'Company Page', founder:'Founder Profile'})[top] || top;
@@ -2787,7 +2807,7 @@
       actions += `<a class="resolved-label">Resolved by ${escapeHtml(c.ResolvedBy || '')}</a>`;
     }
     return `<div class="cmt-item" data-comment-row="${escapeHtml(c.CommentID)}">
-      <div class="cmt-item-head"><span class="cmt-item-author">${escapeHtml(c.Name)}</span><span class="cmt-item-time">${escapeHtml(c.Timestamp)}</span></div>
+      <div class="cmt-item-head"><span class="cmt-item-author">${escapeHtml(c.Name)}</span><span class="cmt-item-time">${formatTimestamp(c.Timestamp)}</span></div>
       <div class="cmt-item-text">${escapeHtml(c.CommentText)}</div>
       <div class="cmt-item-actions">${actions}</div>
     </div>`;
@@ -2869,7 +2889,7 @@
         <span class="cmt-master-screen">${escapeHtml(screenFromElementId(c.ElementID))}</span>
         <span class="cmt-master-elementid">${escapeHtml(c.ElementID)}</span>
       </div>
-      <div class="cmt-item-head"><span class="cmt-item-author">${escapeHtml(c.Name)}</span><span class="cmt-item-time">${escapeHtml(c.Timestamp)}</span></div>
+      <div class="cmt-item-head"><span class="cmt-item-author">${escapeHtml(c.Name)}</span><span class="cmt-item-time">${formatTimestamp(c.Timestamp)}</span></div>
       <div class="cmt-item-text">${escapeHtml(c.CommentText)}</div>
     </div>`;
   }
