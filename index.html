@@ -597,6 +597,30 @@
     border-radius:10px;padding:2px 6px;min-width:14px;text-align:center;line-height:1.4;
   }
 
+  /* secondary button: view every comment on the site, independent of Comment Mode being on */
+  #all-comments-btn{
+    position:fixed;bottom:146px;right:20px;width:40px;height:40px;border-radius:50%;
+    background:#fff;color:#6a3fd6;border:2px solid #6a3fd6;display:flex;align-items:center;justify-content:center;
+    font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(80,40,160,.2);z-index:2000;
+  }
+
+  #master-list-overlay{
+    display:none;position:fixed;inset:0;background:rgba(20,25,45,.35);z-index:2100;
+    align-items:center;justify-content:center;
+  }
+  #master-list-overlay.open{display:flex;}
+  #master-list-popup{
+    background:#fff;border-radius:10px;width:560px;max-height:82vh;display:flex;flex-direction:column;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+  }
+  .cmt-master-item{border-bottom:1px solid var(--border);padding:12px 0;cursor:pointer;}
+  .cmt-master-item:hover{background:var(--grey-bg);}
+  .cmt-master-item:last-child{border-bottom:none;}
+  .cmt-master-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+  .cmt-master-screen{background:var(--blue-light);color:var(--blue);font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:9px;}
+  .cmt-master-elementid{font-size:11px;color:var(--muted);font-family:monospace;}
+  .cmt-jump-highlight{outline:3px solid #6a3fd6 !important;outline-offset:3px !important;transition:outline-color .3s ease;}
+
   /* hover-highlight while Comment Mode is active - tr uses inset box-shadow (outline doesn't clip to
      table rows reliably across browsers, same reasoning as .hero-row above) */
   body.comment-mode-on [data-comment-id]{cursor:pointer;}
@@ -650,8 +674,8 @@
   .cmt-item-actions a{color:var(--blue);cursor:pointer;}
   .cmt-item-actions a.resolved-label{color:#7a5b00;cursor:default;}
   .cmt-empty{font-size:13px;color:var(--muted);font-style:italic;padding:8px 0;}
-  #cmt-resolved-section{margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
-  #cmt-resolved-toggle{font-size:12.5px;color:var(--muted);cursor:pointer;font-weight:600;}
+  .cmt-resolved-section{margin-top:10px;border-top:1px solid var(--border);padding-top:10px;}
+  .cmt-resolved-toggle{font-size:12.5px;color:var(--muted);cursor:pointer;font-weight:600;}
 </style>
 </head>
 <body class="homepage-flow">
@@ -2564,6 +2588,23 @@
   <span>Comment View On/Off</span>
   <span id="comment-total-badge" style="display:none;">0</span>
 </div>
+<div id="all-comments-btn" title="View all comments"><i class="fa fa-list-ul"></i></div>
+
+<div id="master-list-overlay">
+  <div id="master-list-popup">
+    <div class="cmt-popup-head">
+      <b>All Comments</b>
+      <span id="master-list-close"><i class="fa fa-xmark"></i></span>
+    </div>
+    <div class="cmt-popup-body">
+      <div id="master-list-open"></div>
+      <div id="cmt-master-resolved-section" class="cmt-resolved-section" style="display:none;">
+        <div id="cmt-master-resolved-toggle" class="cmt-resolved-toggle">▸ Resolved (<span id="cmt-master-resolved-count">0</span>)</div>
+        <div id="master-list-resolved" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="comment-popup-overlay">
   <div id="comment-popup">
@@ -2584,8 +2625,8 @@
         <button id="cmt-submit-btn">Post Comment</button>
       </div>
       <div id="cmt-list"></div>
-      <div id="cmt-resolved-section" style="display:none;">
-        <div id="cmt-resolved-toggle">▸ Resolved (<span id="cmt-resolved-count">0</span>)</div>
+      <div id="cmt-resolved-section" class="cmt-resolved-section" style="display:none;">
+        <div id="cmt-resolved-toggle" class="cmt-resolved-toggle">▸ Resolved (<span id="cmt-resolved-count">0</span>)</div>
         <div id="cmt-resolved-list" style="display:none;"></div>
       </div>
     </div>
@@ -2605,6 +2646,7 @@
   let currentUserName = localStorage.getItem('cmt-user-name') || null;
   let commentModeActive = false;
   let openElementId = null; // which element's popup is currently open
+  let masterListOpen = false;
 
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -2626,6 +2668,7 @@
         if (commentModeActive) renderElementBadges();
         renderHiddenModalBadges();
         if (openElementId) renderPopupList(openElementId);
+        if (masterListOpen) renderMasterList();
       })
       .catch(() => { /* network hiccup on a poll tick - just try again next interval */ });
   }
@@ -2800,6 +2843,105 @@
       postAction({ action: 'resolve', commentId, resolved: false });
     }
   }
+
+  // ---- Master comment list (every comment on the site) ----
+  function viewForElementId(id) {
+    const parts = id.split('.');
+    const top = parts[0];
+    if (top === 'home') return 'home';
+    if (top === 'list') return 'list';
+    if (top === 'company') {
+      if (parts[1] === 'yogesh') return 'company';
+      if (parts[1] === 'jon') return 'company-jon';
+      if (parts[1] === 'hesam') return 'company-hesam';
+    }
+    if (top === 'founder') {
+      if (parts[1] === 'yogesh') return 'profile';
+      if (parts[1] === 'jon') return 'founder-jon';
+      if (parts[1] === 'hesam') return 'founder-hesam';
+    }
+    return null;
+  }
+
+  function renderMasterItem(c) {
+    return `<div class="cmt-master-item" data-element-id="${escapeHtml(c.ElementID)}">
+      <div class="cmt-master-meta">
+        <span class="cmt-master-screen">${escapeHtml(screenFromElementId(c.ElementID))}</span>
+        <span class="cmt-master-elementid">${escapeHtml(c.ElementID)}</span>
+      </div>
+      <div class="cmt-item-head"><span class="cmt-item-author">${escapeHtml(c.Name)}</span><span class="cmt-item-time">${escapeHtml(c.Timestamp)}</span></div>
+      <div class="cmt-item-text">${escapeHtml(c.CommentText)}</div>
+    </div>`;
+  }
+
+  function renderMasterList() {
+    const open = allComments.filter(c => !isResolved(c));
+    const resolved = allComments.filter(isResolved);
+    document.getElementById('master-list-open').innerHTML = open.length
+      ? open.map(renderMasterItem).join('')
+      : '<div class="cmt-empty">No comments anywhere on the site yet.</div>';
+    const resolvedSection = document.getElementById('cmt-master-resolved-section');
+    const resolvedList = document.getElementById('master-list-resolved');
+    resolvedSection.style.display = resolved.length ? 'block' : 'none';
+    document.getElementById('cmt-master-resolved-count').textContent = resolved.length;
+    resolvedList.innerHTML = resolved.map(renderMasterItem).join('');
+  }
+
+  const masterListOverlay = document.getElementById('master-list-overlay');
+  document.getElementById('all-comments-btn').addEventListener('click', () => {
+    masterListOpen = true;
+    renderMasterList();
+    masterListOverlay.classList.add('open');
+  });
+  document.getElementById('master-list-close').addEventListener('click', () => {
+    masterListOpen = false;
+    masterListOverlay.classList.remove('open');
+  });
+  masterListOverlay.addEventListener('click', (e) => {
+    if (e.target === masterListOverlay) { masterListOpen = false; masterListOverlay.classList.remove('open'); }
+  });
+  document.getElementById('cmt-master-resolved-toggle').addEventListener('click', () => {
+    const list = document.getElementById('master-list-resolved');
+    const isOpen = list.style.display !== 'none';
+    list.style.display = isOpen ? 'none' : 'block';
+    document.getElementById('cmt-master-resolved-toggle').textContent =
+      (isOpen ? '▸' : '▾') + ' Resolved (' + document.getElementById('cmt-master-resolved-count').textContent + ')';
+  });
+
+  // clicking a comment in the master list: switch screen if needed, then scroll to and flash-highlight the element
+  function navigateAndHighlight(elementId) {
+    masterListOpen = false;
+    masterListOverlay.classList.remove('open');
+    const targetView = viewForElementId(elementId);
+    if (targetView) showView(targetView);
+
+    // the one known case of a commentable region living inside a closed modal
+    if (elementId.indexOf('list.modal.customize-columns') === 0) {
+      document.getElementById('cc-overlay').classList.add('open');
+    }
+
+    setTimeout(() => {
+      // element IDs are our own controlled dot/hyphen slugs (no quotes/special chars), so a plain
+      // attribute-selector string is safe here - CSS.escape is for bare identifiers, not this context
+      const el = document.querySelector(`[data-comment-id="${elementId}"]`);
+      if (!el || el.offsetParent === null) {
+        // can't scroll to something that isn't actually visible - fall back to just opening its own popup
+        openCommentPopup(elementId);
+        return;
+      }
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.classList.add('cmt-jump-highlight');
+      setTimeout(() => el.classList.remove('cmt-jump-highlight'), 2000);
+    }, 80);
+  }
+  document.getElementById('master-list-open').addEventListener('click', (e) => {
+    const item = e.target.closest('.cmt-master-item');
+    if (item) navigateAndHighlight(item.dataset.elementId);
+  });
+  document.getElementById('master-list-resolved').addEventListener('click', (e) => {
+    const item = e.target.closest('.cmt-master-item');
+    if (item) navigateAndHighlight(item.dataset.elementId);
+  });
 
   function postAction(params) {
     if (currentUserName) params.name = currentUserName;
