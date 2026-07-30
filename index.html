@@ -621,8 +621,10 @@
   .cmt-popup-head b{font-size:14px;color:#333;}
   #cmt-popup-close{color:var(--muted);cursor:pointer;font-size:15px;}
   .cmt-popup-body{padding:16px 18px;overflow-y:auto;flex:1;}
-  #cmt-signin-area{margin-bottom:14px;}
-  #cmt-signin-pending{font-size:12.5px;color:var(--muted);font-style:italic;background:var(--grey-bg);padding:10px;border-radius:6px;}
+  #cmt-name-area{margin-bottom:14px;}
+  #cmt-name-form{display:flex;gap:8px;}
+  #cmt-name-input{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-family:inherit;}
+  #cmt-name-save{background:#6a3fd6;color:#fff;border:none;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;}
   #cmt-user-chip{font-size:12.5px;color:#3d4452;display:flex;align-items:center;justify-content:space-between;background:var(--grey-bg);padding:8px 10px;border-radius:6px;}
   #cmt-user-chip a{color:var(--blue);cursor:pointer;font-size:12px;}
   #cmt-new-comment-area textarea{
@@ -2562,9 +2564,11 @@
       <span id="cmt-popup-close"><i class="fa fa-xmark"></i></span>
     </div>
     <div class="cmt-popup-body">
-      <div id="cmt-signin-area">
-        <div id="cmt-signin-btn-container"></div>
-        <div id="cmt-signin-pending" style="display:none;">Sign-in isn't configured in this prototype yet - you can still view comments, but not post one.</div>
+      <div id="cmt-name-area">
+        <div id="cmt-name-form">
+          <input type="text" id="cmt-name-input" placeholder="Your name">
+          <button id="cmt-name-save">Save</button>
+        </div>
         <div id="cmt-user-chip" style="display:none;"></div>
       </div>
       <div id="cmt-new-comment-area" style="display:none;">
@@ -2580,18 +2584,17 @@
   </div>
 </div>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 (function() {
   // ---- Config ----
-  // Sheet ID: 1Og3eday_ATGJRB5YUflWXTU5Qa0RtHQPSWdUGy22dNU (for reference only - the API URL below is what's actually called)
-  const COMMENT_API_URL = 'https://script.google.com/a/macros/tracxn.com/s/AKfycbx1qjHjbfbMy9l6UvB3KJtq-rOQvBrGjeZnUrJfYT-ez49i31DG78kxdVuPA9AsrgAC1g/exec';
-  const GOOGLE_CLIENT_ID = '722268222308-h4bi024gg4nv40cakv2bk5du5t60rsth.apps.googleusercontent.com';
+  const COMMENT_API_URL = 'https://script.google.com/macros/s/AKfycbxs7rM5_TGHWuK2YAsjvSEO5lzc9GuSZkdHzBV6infsDUaN5wYf97_GiD3-LdXVDL0NSw/exec';
   const POLL_INTERVAL_MS = 5000;
 
   // ---- State ----
+  // Identity is a plain self-reported name (localStorage-persisted), not a verified Google identity -
+  // deliberate simplification, accepted tradeoff: no cryptographic proof of who typed a given name.
   let allComments = [];
-  let currentUser = null; // {name, email, idToken}
+  let currentUserName = localStorage.getItem('cmt-user-name') || null;
   let commentModeActive = false;
   let openElementId = null; // which element's popup is currently open
 
@@ -2602,14 +2605,6 @@
   function screenFromElementId(id) {
     const top = id.split('.')[0];
     return ({home:'Homepage', list:'Stealth List', company:'Company Page', founder:'Founder Profile'})[top] || top;
-  }
-
-  function decodeJwt(token) {
-    try {
-      const payload = token.split('.')[1];
-      return JSON.parse(decodeURIComponent(atob(payload.replace(/-/g,'+').replace(/_/g,'/')).split('').map(c =>
-        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-    } catch (e) { return null; }
   }
 
   // ---- Fetch + poll ----
@@ -2721,14 +2716,14 @@
   function isResolved(c) { return c.Resolved === true || c.Resolved === 'TRUE' || c.Resolved === 'true'; }
 
   function renderCommentItem(c) {
-    const mine = currentUser && currentUser.email === c.Email;
+    const mine = currentUserName && currentUserName === c.Name;
     const resolved = isResolved(c);
     let actions = '';
     if (mine) {
       actions += `<a data-action="edit" data-id="${escapeHtml(c.CommentID)}">Edit</a>`;
       actions += `<a data-action="delete" data-id="${escapeHtml(c.CommentID)}">Delete</a>`;
     }
-    if (currentUser) {
+    if (currentUserName) {
       actions += resolved
         ? `<a data-action="unresolve" data-id="${escapeHtml(c.CommentID)}">Mark Unresolved</a>`
         : `<a data-action="resolve" data-id="${escapeHtml(c.CommentID)}">Mark Resolved</a>`;
@@ -2759,7 +2754,7 @@
 
     // sign-in / composer area
     const newArea = document.getElementById('cmt-new-comment-area');
-    newArea.style.display = currentUser ? 'block' : 'none';
+    newArea.style.display = currentUserName ? 'block' : 'none';
   }
 
   document.getElementById('cmt-resolved-toggle').addEventListener('click', () => {
@@ -2793,15 +2788,19 @@
     }
   }
 
-  function postAction(body) {
-    if (currentUser) body.idToken = currentUser.idToken;
-    fetch(COMMENT_API_URL, { method: 'POST', body: JSON.stringify(body) }) // text/plain by default - avoids a CORS preflight
+  function postAction(params) {
+    if (currentUserName) params.name = currentUserName;
+    // Mutations go through GET with query params, not POST - Apps Script Web Apps execute behind a
+    // redirect (script.google.com -> script.googleusercontent.com) that cross-origin POST from a
+    // browser's fetch() does not survive reliably. GET does not have this problem.
+    const url = COMMENT_API_URL + '?' + new URLSearchParams(params).toString();
+    fetch(url)
       .then(r => r.json())
       .then(res => {
         if (!res.ok) { alert(res.error || 'Something went wrong.'); return; }
         fetchComments();
       })
-      .catch(() => alert('Could not reach the comment server. Please try again.'));
+      .catch(err => alert('Could not reach the comment server: ' + err.message));
   }
 
   document.getElementById('cmt-submit-btn').addEventListener('click', () => {
@@ -2812,29 +2811,32 @@
     textarea.value = '';
   });
 
-  // ---- Google Sign-In ----
-  function handleCredentialResponse(response) {
-    const payload = decodeJwt(response.credential);
-    if (!payload) return;
-    currentUser = { name: payload.name, email: payload.email, idToken: response.credential };
-    document.getElementById('cmt-signin-btn-container').style.display = 'none';
-    document.getElementById('cmt-signin-pending').style.display = 'none';
+  // ---- Name entry (plain, self-reported - not a verified identity, see header comment) ----
+  function showNameChip() {
+    document.getElementById('cmt-name-form').style.display = 'none';
     const chip = document.getElementById('cmt-user-chip');
     chip.style.display = 'flex';
-    chip.innerHTML = `<span>Signed in as ${escapeHtml(currentUser.name)}</span>`;
+    chip.innerHTML = `<span>Commenting as ${escapeHtml(currentUserName)}</span><a id="cmt-change-name">Change</a>`;
+    document.getElementById('cmt-change-name').addEventListener('click', () => {
+      currentUserName = null;
+      localStorage.removeItem('cmt-user-name');
+      document.getElementById('cmt-name-input').value = '';
+      document.getElementById('cmt-name-form').style.display = 'flex';
+      chip.style.display = 'none';
+      if (openElementId) renderPopupList(openElementId);
+    });
+  }
+  function saveName() {
+    const val = document.getElementById('cmt-name-input').value.trim();
+    if (!val) return;
+    currentUserName = val;
+    localStorage.setItem('cmt-user-name', val);
+    showNameChip();
     if (openElementId) renderPopupList(openElementId);
   }
-
-  if (GOOGLE_CLIENT_ID) {
-    window.addEventListener('load', () => {
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: handleCredentialResponse });
-        google.accounts.id.renderButton(document.getElementById('cmt-signin-btn-container'), { theme: 'outline', size: 'medium' });
-      }
-    });
-  } else {
-    document.getElementById('cmt-signin-pending').style.display = 'block';
-  }
+  document.getElementById('cmt-name-save').addEventListener('click', saveName);
+  document.getElementById('cmt-name-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') saveName(); });
+  if (currentUserName) showNameChip();
 })();
 </script>
 
