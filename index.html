@@ -2848,8 +2848,11 @@
     const list = document.getElementById('cmt-resolved-list');
     const isOpen = list.style.display !== 'none';
     list.style.display = isOpen ? 'none' : 'block';
-    document.getElementById('cmt-resolved-toggle').textContent =
-      (isOpen ? '▸' : '▾') + ' Resolved (' + document.getElementById('cmt-resolved-count').textContent + ')';
+    // innerHTML (not textContent) - the toggle contains a nested #cmt-resolved-count span that later
+    // code depends on; setting .textContent on the parent would silently delete that span for good.
+    const count = document.getElementById('cmt-resolved-count').textContent;
+    document.getElementById('cmt-resolved-toggle').innerHTML =
+      (isOpen ? '▸' : '▾') + ' Resolved (<span id="cmt-resolved-count">' + count + '</span>)';
   });
 
   // delegated action handling for edit/delete/resolve/unresolve inside the popup
@@ -2935,8 +2938,10 @@
     const list = document.getElementById('master-list-resolved');
     const isOpen = list.style.display !== 'none';
     list.style.display = isOpen ? 'none' : 'block';
-    document.getElementById('cmt-master-resolved-toggle').textContent =
-      (isOpen ? '▸' : '▾') + ' Resolved (' + document.getElementById('cmt-master-resolved-count').textContent + ')';
+    // same nested-span fix as cmt-resolved-toggle above - innerHTML preserves #cmt-master-resolved-count
+    const count = document.getElementById('cmt-master-resolved-count').textContent;
+    document.getElementById('cmt-master-resolved-toggle').innerHTML =
+      (isOpen ? '▸' : '▾') + ' Resolved (<span id="cmt-master-resolved-count">' + count + '</span>)';
   });
 
   // clicking a comment in the master list: switch screen if needed, then scroll to and flash-highlight the element
