@@ -112,6 +112,7 @@
   .tree-panel .sub{padding:7px 20px 7px 34px;color:#5b6270;cursor:pointer;}
   .tree-panel .sub:hover{background:var(--grey-bg);color:var(--blue);}
   .tree-panel .sub.active{background:var(--blue-light);color:var(--blue);font-weight:600;}
+  .tree-panel .group.active{background:var(--blue-light);color:var(--blue);}
   /* colors/padding/radius confirmed from reference: real "NEW" tag markup uses txn--background-color-turbo (#f7ca18), txn--text-color-daintree (#04223a), txn--border-radius-xs (2px), txn--padding-horizontal-4 txn--padding-vertical-2 */
   .tree-panel .tag-new{background:#f7ca18;color:#04223a;font-size:9px;font-weight:700;padding:2px 4px;border-radius:2px;margin-left:6px;}
   .tree-panel .tag-try{background:var(--green-bg);color:var(--green);font-size:9px;font-weight:800;padding:1px 5px;border-radius:3px;margin-left:6px;}
@@ -254,6 +255,51 @@
   table.stealth-table.density-compact tbody td{padding:3px 12px;font-size:12px;}
   table.stealth-table.density-compact .co-avatar{width:18px;height:18px;}
   table.stealth-table.density-compact .stealth-pill{display:none;}
+
+  /* ============ TALENT SIGNALS VIEW ============ */
+  .tal-subheader{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:16px;}
+  .tal-subcrumbs{font-size:12.5px;color:var(--blue);}
+  .tal-subcrumbs span{color:var(--blue);cursor:pointer;}
+  .tal-subcrumbs .sep{color:var(--border);margin:0 2px;}
+  .tal-feed{display:flex;flex-direction:column;gap:16px;max-width:1100px;}
+  .tal-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
+  .tal-card-head{display:flex;align-items:flex-start;gap:12px;}
+  .tal-avatar{width:44px;height:44px;border-radius:50%;background:#3a4a80;color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
+  .tal-avatar img{width:100%;height:100%;object-fit:cover;}
+  .tal-headline-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .tal-headline{font-size:14px;color:#333;line-height:1.5;}
+  .tal-headline a{color:var(--blue);font-weight:700;}
+  .tal-headline b{font-weight:700;color:#333;}
+  .tal-headline .tal-co-logo{width:16px;height:16px;border-radius:3px;object-fit:contain;vertical-align:-3px;margin-left:2px;}
+  .tal-timestamp{font-size:12px;color:var(--muted);white-space:nowrap;flex-shrink:0;}
+  .tal-desc{font-size:12.5px;color:#5b6270;margin:6px 0 10px;line-height:1.5;}
+  .tal-pills{margin-bottom:14px;}
+  .tal-pills .mini-pill{background:#d3e4fb;}
+  .tal-grid{display:flex;gap:32px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .tal-grid-col{min-width:150px;}
+  .tal-grid-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
+  .tal-grid-row{display:flex;align-items:flex-start;gap:8px;}
+  .tal-grid-row .logo-chip{width:22px;height:22px;border-radius:4px;font-size:10px;}
+  .tal-grid-main{font-size:13px;font-weight:700;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px;}
+  .tal-grid-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+  .tal-grid-sub-plain{font-size:13px;color:#333;}
+  .tal-more-trigger{position:relative;color:var(--blue);cursor:pointer;font-weight:600;}
+  .tal-actions{display:flex;align-items:center;gap:22px;padding-top:12px;margin-top:14px;border-top:1px solid var(--border);}
+  .tal-action-trigger{position:relative;}
+  .tal-action-btn{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#5b6270;cursor:pointer;background:none;border:none;padding:0;font-family:inherit;}
+  .tal-action-btn:hover{color:var(--blue);}
+  .tal-dropdown{
+    display:none;position:absolute;top:26px;left:0;background:#fff;border:1px solid var(--border);border-radius:8px;
+    box-shadow:0 8px 24px rgba(20,25,45,.14);min-width:210px;padding:6px 0;z-index:260;font-size:13px;font-weight:400;text-align:left;
+  }
+  .tal-more-trigger .tal-dropdown{bottom:auto;top:22px;left:auto;right:0;min-width:230px;}
+  .tal-dropdown.open{display:block;}
+  .tal-dropdown-item{display:flex;align-items:center;gap:8px;padding:8px 14px;color:#3d4452;cursor:pointer;white-space:nowrap;}
+  .tal-dropdown-item:hover{background:var(--grey-bg);}
+  .tal-dropdown-item .logo-chip{width:18px;height:18px;font-size:9px;flex-shrink:0;}
+  .tal-dropdown-item i{width:14px;text-align:center;color:#9aa0ab;flex-shrink:0;}
+  .tal-tag-stealth{background:#eef1f6;color:#555;font-size:10.5px;padding:2px 8px;border-radius:10px;font-weight:600;}
+  .tal-tag-emerged{background:var(--green-bg);color:var(--green);font-size:10.5px;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:6px;}
 
   /* ---- Customize Columns modal ---- */
   .cc-overlay{
@@ -1006,8 +1052,7 @@
     <div class="group">▾ Companies Covered</div>
     <div class="sub">All</div>
     <div class="sub">Notable Cos.</div>
-    <div class="sub active">Stealth Companies<span class="tag-new">NEW</span></div>
-    <div class="sub">Talent Signals</div>
+    <div class="sub active" id="stealth-companies-link">Stealth Companies<span class="tag-new">NEW</span></div>
     <div class="sub">Company Trends</div>
     <div class="sub">Deal Flow CRM View</div>
     <div class="group">▸ Market & Taxonomy</div>
@@ -1019,6 +1064,7 @@
     <div class="group">▸ Trends & Charts</div>
     <div class="group">▸ Reports</div>
     <div class="group">▸ People</div>
+    <div class="group" id="talent-signals-link">Talent Signals</div>
     <div class="group">▸ News</div>
     <div class="group">▸ Team Background</div>
     <div class="group">Employee Count</div>
@@ -1037,7 +1083,7 @@
 
   <div id="report-issue-btn" data-comment-id="list.report-issue"><i class="fa fa-triangle-exclamation"></i> Report Issue</div>
 
-  <div class="list-main">
+  <div class="list-main" id="stealth-list-main">
     <div class="breadcrumb">Explore Databases</div>
     <div class="list-title-row">
       <div class="list-title">
@@ -1319,6 +1365,304 @@
         </thead>
         <tbody id="stealth-rows"></tbody>
       </table>
+    </div>
+  </div>
+
+  <!-- ============ TALENT SIGNALS MAIN CONTENT ============ -->
+  <div class="list-main" id="talent-signals-main" style="display:none;">
+    <div class="breadcrumb">Explore Database</div>
+    <div class="list-title-row">
+      <div class="list-title">
+        <h1>Talent Signals</h1>
+        <span class="count">1M+ results</span>
+      </div>
+      <div class="toolbar-right">
+        <div class="toolbar-item"><i class="fa fa-download"></i> Export</div>
+        <div class="toolbar-item"><i class="fa fa-bookmark"></i> Saved Searches <i class="fa fa-angle-down"></i></div>
+        <div class="filter-sort-group">
+          <div class="toolbar-item">▾ Filter</div>
+          <div class="toolbar-item">↕ Sort - Signal Date <span class="sort-updown">⌃⌄</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tal-subheader">
+      <div class="tal-subcrumbs"><span>Signal Details</span> <span class="sep">/</span> <span>Work Experience Details</span> <span class="sep">/</span> <span>Company Details</span></div>
+      <div class="tal-subcrumbs">↕ Relevance</div>
+    </div>
+
+    <div class="tal-feed">
+
+      <!-- Card 1: Sachin Bansal -->
+      <div class="tal-card">
+        <div class="tal-card-head">
+          <div class="tal-avatar" style="background:#2e5aac;">SB</div>
+          <div style="flex:1;">
+            <div class="tal-headline-row">
+              <div class="tal-headline"><a>Sachin Bansal</a> started a <b>New Company</b> &nbsp;<img class="tal-co-logo" src="https://www.google.com/s2/favicons?sz=64&domain=navi.com" onerror="this.style.display='none'"> <a>Navi Technologies</a></div>
+              <div class="tal-timestamp">This Week</div>
+            </div>
+            <div class="tal-desc">Sachin Bansal is a prominent Indian entrepreneur and software engineer best known as the co-founder and former CEO of Flipkart</div>
+            <div class="tal-pills"><span class="mini-pill">Prior Acquisition Experience</span> <span class="mini-pill">$50M+ Club</span> <span class="mini-pill">Serial Founder</span></div>
+          </div>
+        </div>
+        <div class="tal-grid">
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Past Experience</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=flipkart.com" onerror="this.parentElement.textContent='F'"></span>
+              <div><div class="tal-grid-main">Flipkart Group</div><div class="tal-grid-sub">Ex-Co-Founder <span class="tal-more-trigger">+4 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=shopsy.in" onerror="this.parentElement.textContent='S'"></span> Shopsy - ex-Co-Founder</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=2gud.com" onerror="this.parentElement.textContent='2'"></span> 2GUD - ex-Co-Founder</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=flipkart.com" onerror="this.parentElement.textContent='F'"></span> Flipkart Nearby - ex-Co-Founder</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=jambool.com" onerror="this.parentElement.textContent='J'"></span> Jambool - Ex-Founder &amp; CEO - ex-Co-Founder</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=navi.com" onerror="this.parentElement.textContent='N'"></span> Navi Technologies - Founder</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Education</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitd.ac.in" onerror="this.parentElement.textContent='IIT'"></span>
+              <div><div class="tal-grid-main" title="Indian Institute of Technology, Delhi">Indian Institute of Technology, Delhi</div><div class="tal-grid-sub">Bachelor of Technology</div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Company Sector</div>
+            <div class="tal-grid-row"><div class="tal-grid-sub-plain">FinTech <span class="tal-more-trigger">+4 more
+              <div class="tal-dropdown">
+                <div class="tal-dropdown-item">IoT Applications</div>
+                <div class="tal-dropdown-item">Payments</div>
+              </div>
+            </span></div></div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Company Location</div>
+            <div class="tal-grid-row"><div class="tal-grid-sub-plain"><span class="flag-icon flag-icon-in"></span> Pune <span style="color:var(--muted);">(India)</span></div></div>
+          </div>
+        </div>
+        <div class="tal-actions">
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-bell"></i> Follow</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Follow Sachin Bansal</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Follow Navi Technologies</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-star"></i> Add to Custom List</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Sachin Bansal to Custom List</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Add Navi Technologies to Custom List</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-solid fa-table-cells"></i> Add to CRM</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Sachin Bansal to CRM</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Add Navi Technologies to CRM</div>
+            </div>
+          </div>
+          <button class="tal-action-btn"><i class="fa-regular fa-eye"></i> View Details</button>
+        </div>
+      </div>
+
+      <!-- Card 2: Anouk Moll -->
+      <div class="tal-card">
+        <div class="tal-card-head">
+          <div class="tal-avatar" style="background:#c0392b;">AM</div>
+          <div style="flex:1;">
+            <div class="tal-headline-row">
+              <div class="tal-headline"><a>Anouk Moll</a> started a <b>New Company</b> &nbsp;<span class="tal-tag-stealth"><i class="fa-solid fa-user-secret"></i> Stealth</span></div>
+              <div class="tal-timestamp">This Week</div>
+            </div>
+            <div class="tal-desc">CEO &amp; Co-founder @ Stealth Fintech start-up | MSc University of Oxford · Building the future of back office capital market infrastructure.</div>
+            <div class="tal-pills"><span class="mini-pill">$5M+ Club</span> <span class="mini-pill">Serial Founder</span></div>
+          </div>
+        </div>
+        <div class="tal-grid">
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Past Experience</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=binfluence.com" onerror="this.parentElement.textContent='B'"></span>
+              <div><div class="tal-grid-main">Binfluence</div><div class="tal-grid-sub">Co-Founder <span class="tal-more-trigger">+1 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=sturq.com" onerror="this.parentElement.textContent='S'"></span> Sturq - Co-Founder</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Education</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=ox.ac.uk" onerror="this.parentElement.textContent='O'"></span>
+              <div><div class="tal-grid-main">University of Oxford</div><div class="tal-grid-sub">Masters of Scien... <span class="tal-more-trigger">+1 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=ucm.nl" onerror="this.parentElement.textContent='M'"></span> University College Maastricht - Bachelor's degree</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Company Location</div>
+            <div class="tal-grid-row"><div class="tal-grid-sub-plain"><span class="flag-icon flag-icon-nl"></span> Maastricht <span style="color:var(--muted);">(Netherlands)</span></div></div>
+          </div>
+        </div>
+        <div class="tal-actions">
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-bell"></i> Follow</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Follow Anouk Moll</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-star"></i> Add to Custom List</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Anouk Moll to Custom List</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-solid fa-table-cells"></i> Add to CRM</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Anouk Moll to CRM</div>
+            </div>
+          </div>
+          <button class="tal-action-btn"><i class="fa-regular fa-eye"></i> View Details</button>
+        </div>
+      </div>
+
+      <!-- Card 3: Bailey Renger's company emerged out of Stealth -->
+      <div class="tal-card">
+        <div class="tal-card-head">
+          <div class="tal-avatar" style="background:#7a5b00;">BR</div>
+          <div style="flex:1;">
+            <div class="tal-headline-row">
+              <div class="tal-headline"><a>Bailey Renger's</a> company <b>emerged out of Stealth</b> - &nbsp;<img class="tal-co-logo" src="https://www.google.com/s2/favicons?sz=64&domain=besound.com" onerror="this.style.display='none'"> <a>BeSound</a><span class="tal-tag-emerged"><i class="fa-solid fa-circle-arrow-up"></i> Emerged</span></div>
+              <div class="tal-timestamp">This Week</div>
+            </div>
+            <div class="tal-desc">Bailey Renger is a quantum physicist with a passion for entrepreneurship.</div>
+            <div class="tal-pills"><span class="mini-pill">$5M+ Club</span> <span class="mini-pill">Serial Founder</span></div>
+          </div>
+        </div>
+        <div class="tal-grid">
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Past Experience</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=quantumcomputinginc.com" onerror="this.parentElement.textContent='Q'"></span>
+              <div><div class="tal-grid-main">Quantum Computi...</div><div class="tal-grid-sub">Ex-Co-Founder <span class="tal-more-trigger">+4 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=ionq.com" onerror="this.parentElement.textContent='I'"></span> IonQ - Research Scientist</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=rigetti.com" onerror="this.parentElement.textContent='R'"></span> Rigetti Computing - Quantum Engineer</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=dwavesys.com" onerror="this.parentElement.textContent='D'"></span> D-Wave Systems - Intern</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=besound.com" onerror="this.parentElement.textContent='B'"></span> BeSound - Founder</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Education</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=brown.edu" onerror="this.parentElement.textContent='B'"></span>
+              <div><div class="tal-grid-main">Brown University</div><div class="tal-grid-sub">PhD Candidate,... <span class="tal-more-trigger">+1 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><i class="fa-solid fa-graduation-cap"></i> Brown University - BS, Physics</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Company Sector</div>
+            <div class="tal-grid-row"><div class="tal-grid-sub-plain">FinTech <span class="tal-more-trigger">+2
+              <div class="tal-dropdown">
+                <div class="tal-dropdown-item">Consumer Electronics</div>
+                <div class="tal-dropdown-item">Audio Technology</div>
+              </div>
+            </span></div></div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Company Location</div>
+            <div class="tal-grid-row"><div class="tal-grid-sub-plain"><span class="flag-icon flag-icon-us"></span> San Francisco <span style="color:var(--muted);">(United States)</span></div></div>
+          </div>
+        </div>
+        <div class="tal-actions">
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-bell"></i> Follow</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Follow Bailey Renger</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Follow BeSound</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-star"></i> Add to Custom List</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Bailey Renger to Custom List</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Add BeSound to Custom List</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-solid fa-table-cells"></i> Add to CRM</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Bailey Renger to CRM</div>
+              <div class="tal-dropdown-item"><i class="fa-regular fa-building"></i> Add BeSound to CRM</div>
+            </div>
+          </div>
+          <button class="tal-action-btn"><i class="fa-regular fa-eye"></i> View Details</button>
+        </div>
+      </div>
+
+      <!-- Card 4: Bailey Renger left OpenAI, searching -->
+      <div class="tal-card">
+        <div class="tal-card-head">
+          <div class="tal-avatar" style="background:#7a5b00;">BR</div>
+          <div style="flex:1;">
+            <div class="tal-headline-row">
+              <div class="tal-headline"><a>Bailey Renger</a> left <b>OpenAI</b> and is <b>Searching</b> for new roles</div>
+              <div class="tal-timestamp">This Week</div>
+            </div>
+            <div class="tal-desc">Bailey Renger is a quantum physicist with a passion for entrepreneurship.</div>
+            <div class="tal-pills"><span class="mini-pill">$5M+ Club</span> <span class="mini-pill">Serial Founder</span></div>
+          </div>
+        </div>
+        <div class="tal-grid">
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Past Experience</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=quantumcomputinginc.com" onerror="this.parentElement.textContent='Q'"></span>
+              <div><div class="tal-grid-main">Quantum Computi...</div><div class="tal-grid-sub">Ex-Co-Founder <span class="tal-more-trigger">+4 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=ionq.com" onerror="this.parentElement.textContent='I'"></span> IonQ - Research Scientist</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=rigetti.com" onerror="this.parentElement.textContent='R'"></span> Rigetti Computing - Quantum Engineer</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=dwavesys.com" onerror="this.parentElement.textContent='D'"></span> D-Wave Systems - Intern</div>
+                  <div class="tal-dropdown-item"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=openai.com" onerror="this.parentElement.textContent='O'"></span> OpenAI - Research Scientist</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+          <div class="tal-grid-col">
+            <div class="tal-grid-label">Education</div>
+            <div class="tal-grid-row">
+              <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=brown.edu" onerror="this.parentElement.textContent='B'"></span>
+              <div><div class="tal-grid-main">Brown University</div><div class="tal-grid-sub">PhD Candidate,... <span class="tal-more-trigger">+1 more
+                <div class="tal-dropdown">
+                  <div class="tal-dropdown-item"><i class="fa-solid fa-graduation-cap"></i> Brown University - BS, Physics</div>
+                </div>
+              </span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="tal-actions">
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-bell"></i> Follow</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Follow Bailey Renger</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-regular fa-star"></i> Add to Custom List</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Bailey Renger to Custom List</div>
+            </div>
+          </div>
+          <div class="tal-action-trigger"><button class="tal-action-btn"><i class="fa-solid fa-table-cells"></i> Add to CRM</button>
+            <div class="tal-dropdown">
+              <div class="tal-dropdown-item"><i class="fa-regular fa-user"></i> Add Bailey Renger to CRM</div>
+            </div>
+          </div>
+          <button class="tal-action-btn"><i class="fa-regular fa-eye"></i> View Details</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -3677,7 +4021,7 @@
   });
 
   // ---- View switching ----
-  const VALID_VIEWS = ['home','list','company','company-jon','company-hesam','company-gwendolyn','company-sourabh','company-gyanesh','profile','founder-jon','founder-hesam','founder-gwendolyn','founder-sourabh','founder-gyanesh'];
+  const VALID_VIEWS = ['home','list','talent-signals','company','company-jon','company-hesam','company-gwendolyn','company-sourabh','company-gyanesh','profile','founder-jon','founder-hesam','founder-gwendolyn','founder-sourabh','founder-gyanesh'];
   // Extra hashes that resolve to an existing view but aren't its canonical/address-bar form (e.g. Yogesh's
   // views are unsuffixed internally - 'company' and 'profile' - these let #company-yogesh/#founder-yogesh
   // still work as shareable URLs without becoming what the address bar shows once you're on that screen).
@@ -3692,8 +4036,12 @@
     if (!VALID_VIEWS.includes(view)) view = 'home';
     document.getElementById('home-view').style.display = view === 'home' ? 'block' : 'none';
     document.querySelector('.gs-widget').style.display = view === 'home' ? 'flex' : 'none';
-    document.getElementById('list-view').style.display = view === 'list' ? 'block' : 'none';
-    document.querySelector('.ask-ai-bar').style.display = view === 'list' ? 'flex' : 'none';
+    document.getElementById('list-view').style.display = (view === 'list' || view === 'talent-signals') ? 'block' : 'none';
+    document.querySelector('.ask-ai-bar').style.display = (view === 'list' || view === 'talent-signals') ? 'flex' : 'none';
+    document.getElementById('stealth-list-main').style.display = view === 'list' ? 'block' : 'none';
+    document.getElementById('talent-signals-main').style.display = view === 'talent-signals' ? 'block' : 'none';
+    document.getElementById('stealth-companies-link').classList.toggle('active', view === 'list');
+    document.getElementById('talent-signals-link').classList.toggle('active', view === 'talent-signals');
     document.getElementById('company-view').style.display = view === 'company' ? 'block' : 'none';
     document.getElementById('company-view-jon').style.display = view === 'company-jon' ? 'block' : 'none';
     document.getElementById('company-view-hesam').style.display = view === 'company-hesam' ? 'block' : 'none';
@@ -3738,6 +4086,25 @@
   document.getElementById('stealth-qa-card').addEventListener('click', () => showView('list'));
   document.querySelectorAll('.iconrail .icon').forEach(icon => {
     if (icon.textContent.trim().includes('Home')) icon.addEventListener('click', () => showView('home'));
+  });
+  document.getElementById('stealth-companies-link').addEventListener('click', () => showView('list'));
+  document.getElementById('talent-signals-link').addEventListener('click', () => showView('talent-signals'));
+
+  // ---- Talent Signals card dropdowns (Follow / Add to Custom List / Add to CRM / "+N more") ----
+  // Generic delegation: any element carrying a nested .tal-dropdown toggles it open on click,
+  // closing all others first; clicking anywhere else closes them all.
+  document.querySelectorAll('.tal-action-trigger, .tal-more-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const dd = trigger.querySelector('.tal-dropdown');
+      if (!dd) return;
+      const wasOpen = dd.classList.contains('open');
+      document.querySelectorAll('.tal-dropdown.open').forEach(d => d.classList.remove('open'));
+      if (!wasOpen) dd.classList.add('open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.tal-dropdown.open').forEach(d => d.classList.remove('open'));
   });
 
   document.getElementById('back-to-list-from-company').addEventListener('click', () => showView('list'));
