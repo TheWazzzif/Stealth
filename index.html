@@ -512,7 +512,7 @@
   .co-header h2{margin:0 0 5px;font-size:20px;display:flex;align-items:center;gap:8px;}
   .co-header .meta{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px;}
   .co-header-actions{display:flex;align-items:center;gap:10px;}
-  .co-summary{font-size:13px;color:#555;line-height:1.5;max-width:820px;}
+  .co-summary{font-size:13px;color:#555;line-height:1.5;}
   /* real Follow button text color is "regal-blue" #074373, not curious-blue #337ab7 - confirmed via reference-screens/*.html */
   .btn-follow{background:#fff;color:#074373;border:1px solid #074373;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;}
   .btn-plain{background:#fff;color:#374151;border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;}
@@ -1051,7 +1051,7 @@
     <div class="group">▾ Companies Covered</div>
     <div class="sub">All</div>
     <div class="sub">Notable Cos.</div>
-    <div class="sub active" id="stealth-companies-link">Stealth Companies<span class="tag-new">NEW</span></div>
+    <div class="sub active pm-flag" id="stealth-companies-link">Stealth Companies<span class="tag-new">NEW</span></div>
     <div class="sub">Company Trends</div>
     <div class="sub">Deal Flow CRM View</div>
     <div class="group">▸ Market & Taxonomy</div>
@@ -1065,7 +1065,7 @@
     <div class="group">▾ People</div>
     <div class="sub">All</div>
     <div class="sub">Angels</div>
-    <div class="sub" id="talent-signals-link">Talent Signals<span class="tag-new">NEW</span></div>
+    <div class="sub pm-flag" id="talent-signals-link">Talent Signals<span class="tag-new">NEW</span></div>
     <div class="group">▸ News</div>
     <div class="group">▸ Team Background</div>
     <div class="group">Employee Count</div>
@@ -1373,7 +1373,6 @@
             <th data-col="priorexp" class="pm-flag">People Past Work Experience <span class="pm-badge">RENAMED</span></th>
             <th data-col="prioredu" class="pm-flag">People Education <span class="pm-badge">RENAMED</span></th>
             <th data-col="age" class="pm-flag">Estimated Age <span class="pm-badge">NEW</span></th>
-            <th data-col="teambg">Top Team background</th>
             <th data-col="firstadded">First Added Date <span class="sort-caret">▾</span></th>
             <th data-col="country">Country</th>
             <th data-col="state">State</th>
@@ -1729,7 +1728,6 @@
           <div class="cc-group-head"><input type="checkbox" checked disabled> Company Founders <span style="margin-left:auto;">⌃</span></div>
           <div class="cc-group-items">
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="highlights"> Key Highlights <span class="pm-badge">RENAMED</span></label>
-            <label class="cc-check-row"><input type="checkbox" checked data-col="teambg"> Top Team background</label>
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="prioredu"> People Education <span class="pm-badge">RENAMED</span></label>
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="age"> Estimated Age <span class="pm-badge">NEW</span></label>
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="priorexp"> People Past Work Experience <span class="pm-badge">RENAMED</span></label>
@@ -1755,7 +1753,6 @@
           <div class="cc-reorder-item pm-flag" data-col="priorexp"><span class="handle">⣿</span> People Past Work Experience <span class="pm-badge">RENAMED</span> <span class="remove">✕</span></div>
           <div class="cc-reorder-item pm-flag" data-col="prioredu"><span class="handle">⣿</span> People Education <span class="pm-badge">RENAMED</span> <span class="remove">✕</span></div>
           <div class="cc-reorder-item pm-flag" data-col="age"><span class="handle">⣿</span> Estimated Age <span class="pm-badge">NEW</span> <span class="remove">✕</span></div>
-          <div class="cc-reorder-item" data-col="teambg"><span class="handle">⣿</span> Top Team background <span class="remove">✕</span></div>
           <div class="cc-reorder-item" data-col="firstadded"><span class="handle">⣿</span> First Added Date <span class="remove">✕</span></div>
           <div class="cc-reorder-item" data-col="country"><span class="handle">⣿</span> Country <span class="remove">✕</span></div>
           <div class="cc-reorder-item" data-col="state"><span class="handle">⣿</span> State <span class="remove">✕</span></div>
@@ -1900,7 +1897,7 @@
           <div class="founder-list-card">
             <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span>
             <div class="flc-body">
-              <div class="flc-title"><span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span> <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
+              <div class="flc-title">Stanford University Graduate School of Business <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
               <div class="flc-sub">Master of Business Administration - MBA, Business Administration and Management, General</div>
               <div class="flc-meta">2009-2011</div>
             </div>
@@ -1908,7 +1905,7 @@
           <div class="founder-list-card">
             <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitb.ac.in" onerror="this.parentElement.textContent='IIT'"></span>
             <div class="flc-body">
-              <div class="flc-title"><span class="pm-flag" title="Indian Institute of Technology, Bombay">IIT Bombay <span class="pm-badge">SHORT NAME</span></span></div>
+              <div class="flc-title">Indian Institute of Technology, Bombay</div>
               <div class="flc-sub">Bachelor of Technology - BTech, Computer Science</div>
               <div class="flc-meta">2001-2005</div>
             </div>
@@ -2292,7 +2289,7 @@
           <div class="founder-list-card">
             <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span>
             <div class="flc-body">
-              <div class="flc-title"><span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span> <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
+              <div class="flc-title">Stanford University Graduate School of Business <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
               <div class="flc-sub">Master of Business Administration (MBA)</div>
               <div class="flc-meta">–</div>
             </div>
@@ -2681,7 +2678,7 @@
           <div class="founder-list-card">
             <span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitr.ac.in" onerror="this.parentElement.textContent='IIT'"></span>
             <div class="flc-body">
-              <div class="flc-title"><span class="pm-flag" title="Indian Institute of Technology, Roorkee">IIT Roorkee <span class="pm-badge">SHORT NAME</span></span> <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
+              <div class="flc-title">Indian Institute of Technology, Roorkee <span class="mini-pill" style="background:var(--green-bg);color:var(--green);">Top University</span></div>
               <div class="flc-sub">B.Tech, Computer Science and Engineering</div>
               <div class="flc-meta">2005 - 2009</div>
             </div>
@@ -2866,7 +2863,7 @@
           <div class="founder-list-card">
             <span class="logo-chip">N</span>
             <div class="flc-body">
-              <div class="flc-title"><span class="pm-flag" title="Dr B R Ambedkar National Institute of Technology, Jalandhar">NIT Jalandhar <span class="pm-badge">SHORT NAME</span></span></div>
+              <div class="flc-title">Dr B R Ambedkar National Institute of Technology, Jalandhar</div>
               <div class="flc-sub">Bachelor of Technology, Computer Engineering</div>
               <div class="flc-meta">2017 - 2021</div>
             </div>
@@ -3093,7 +3090,7 @@
           <div class="field-row"><div class="field-label">LinkedIn</div><div class="field-value"><a href="https://www.linkedin.com/in/hesam-motlagh" target="_blank" rel="noopener noreferrer">Click to View</a></div></div>
           <div class="field-row"><div class="field-label">Location</div><div class="field-value">San Francisco, United States</div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est age-est-unknown" title="Unknown - insufficient data to estimate">Unknown</span></div></div>
-          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Master of Business Administration (MBA), <span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span> <a href="#">View More (2)</a></div></div>
+          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Master of Business Administration (MBA), Stanford University Graduate School of Business <a href="#">View More (2)</a></div></div>
           <div class="field-row"><div class="field-label">Work Experience</div><div class="field-value">Founder - Hesam Motlagh <a href="#">View More (9)</a></div></div>
         </div>
 
@@ -3182,7 +3179,7 @@
             <thead><tr><th>College</th><th style="width:110px;">Duration</th><th>Degree</th></tr></thead>
             <tbody>
               <tr>
-                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span><span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span></div></td>
+                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span>Stanford University Graduate School of Business</div></td>
                 <td class="nowrap">–</td>
                 <td>Master of Business Administration (MBA)</td>
                 </tr>
@@ -3421,7 +3418,7 @@
           <div class="field-row"><div class="field-label">LinkedIn</div><div class="field-value"><a href="https://www.linkedin.com/in/sourabhagrawal09" target="_blank" rel="noopener noreferrer">Click to View</a></div></div>
           <div class="field-row"><div class="field-label">Location</div><div class="field-value">Bengaluru, India</div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~39 <span class="age-est-tag">est.</span></span></div></div>
-          <div class="field-row"><div class="field-label">Education</div><div class="field-value">B.Tech, Computer Science and Engineering, <span class="pm-flag" title="Indian Institute of Technology, Roorkee">IIT Roorkee <span class="pm-badge">SHORT NAME</span></span></div></div>
+          <div class="field-row"><div class="field-label">Education</div><div class="field-value">B.Tech, Computer Science and Engineering, Indian Institute of Technology, Roorkee</div></div>
           <div class="field-row"><div class="field-label">Work Experience</div><div class="field-value">Founder - Sourabh Agarwal <a href="#">View More (10)</a></div></div>
         </div>
 
@@ -3506,7 +3503,7 @@
             <thead><tr><th>College</th><th style="width:110px;">Duration</th><th>Degree</th></tr></thead>
             <tbody>
               <tr>
-                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitr.ac.in" onerror="this.parentElement.textContent='IIT'"></span><span class="pm-flag" title="Indian Institute of Technology, Roorkee">IIT Roorkee <span class="pm-badge">SHORT NAME</span></span></div></td>
+                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitr.ac.in" onerror="this.parentElement.textContent='IIT'"></span>Indian Institute of Technology, Roorkee</div></td>
                 <td class="nowrap">2005-2009</td>
                 <td>B.Tech, Computer Science and Engineering</td>
               </tr>
@@ -3577,7 +3574,7 @@
           <div class="field-row"><div class="field-label">LinkedIn</div><div class="field-value"><a href="https://www.linkedin.com/in/gyanesh-kumar-ba394a150" target="_blank" rel="noopener noreferrer">Click to View</a></div></div>
           <div class="field-row"><div class="field-label">Location</div><div class="field-value">India</div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~27 <span class="age-est-tag">est.</span></span></div></div>
-          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Bachelor of Technology, Computer Engineering, <span class="pm-flag" title="Dr B R Ambedkar National Institute of Technology, Jalandhar">NIT Jalandhar <span class="pm-badge">SHORT NAME</span></span></div></div>
+          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Bachelor of Technology, Computer Engineering, Dr B R Ambedkar National Institute of Technology, Jalandhar</div></div>
           <div class="field-row"><div class="field-label">Work Experience</div><div class="field-value">Co-Founder - Gyanesh Kumar <a href="#">View More (10)</a></div></div>
         </div>
 
@@ -3660,7 +3657,7 @@
             <thead><tr><th>College</th><th style="width:110px;">Duration</th><th>Degree</th></tr></thead>
             <tbody>
               <tr>
-                <td><div class="company-cell"><span class="logo-chip">N</span><span class="pm-flag" title="Dr B R Ambedkar National Institute of Technology, Jalandhar">NIT Jalandhar <span class="pm-badge">SHORT NAME</span></span></div></td>
+                <td><div class="company-cell"><span class="logo-chip">N</span>Dr B R Ambedkar National Institute of Technology, Jalandhar</div></td>
                 <td class="nowrap">2017-2021</td>
                 <td>Bachelor of Technology, Computer Engineering</td>
                 </tr>
@@ -3732,7 +3729,7 @@
           <div class="field-row"><div class="field-label">LinkedIn</div><div class="field-value"><a href="https://www.linkedin.com/in/yogesh-mahansaria" target="_blank" rel="noopener noreferrer">Click to View</a></div></div>
           <div class="field-row"><div class="field-label">Location</div><div class="field-value">Gurugram, India</div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~43 <span class="age-est-tag">est.</span></span></div></div>
-          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Master of Business Administration - MBA, Business Administration and Management, General, <span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span> <a href="#">View More (2)</a></div></div>
+          <div class="field-row"><div class="field-label">Education</div><div class="field-value">Master of Business Administration - MBA, Business Administration and Management, General, Stanford University Graduate School of Business <a href="#">View More (2)</a></div></div>
           <div class="field-row"><div class="field-label">Work Experience</div><div class="field-value">CEO & Co-founder - Yogesh M. <a href="#">View More (4)</a></div></div>
         </div>
 
@@ -3795,12 +3792,12 @@
             <thead><tr><th>College</th><th style="width:110px;">Duration</th><th>Degree</th></tr></thead>
             <tbody>
               <tr>
-                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span><span class="pm-flag" title="Stanford University Graduate School of Business">Stanford GSB <span class="pm-badge">SHORT NAME</span></span></div></td>
+                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=stanford.edu" onerror="this.parentElement.textContent='S'"></span>Stanford University Graduate School of Business</div></td>
                 <td class="nowrap">2009-2011</td>
                 <td>Master of Business Administration - MBA, Business Administration and Management, General</td>
               </tr>
               <tr>
-                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitb.ac.in" onerror="this.parentElement.textContent='IIT'"></span><span class="pm-flag" title="Indian Institute of Technology, Bombay">IIT Bombay <span class="pm-badge">SHORT NAME</span></span></div></td>
+                <td><div class="company-cell"><span class="logo-chip"><img src="https://www.google.com/s2/favicons?sz=64&domain=iitb.ac.in" onerror="this.parentElement.textContent='IIT'"></span>Indian Institute of Technology, Bombay</div></td>
                 <td class="nowrap">2001-2005</td>
                 <td>Bachelor of Technology - BTech, Computer Science</td>
               </tr>
@@ -3884,15 +3881,31 @@
   // companyOnly: People Past Work Experience deliberately drops the designation, showing company name only
   function companyOnly(s) { return s.split(' - ')[0]; }
   // Short-form college names: display capability only - mapping data itself is a data-team item, this is a demo entry.
+  // Irregular abbreviations that can't be derived by pattern (IIT/NIT below are handled generically instead).
   const SHORT_COLLEGE_NAMES = {
     'Stanford University Graduate School of Business': 'Stanford GSB',
-    'Indian Institute of Technology, Bombay': 'IIT Bombay',
-    'Indian Institute of Technology, Roorkee': 'IIT Roorkee',
-    'Dr B R Ambedkar National Institute of Technology, Jalandhar': 'NIT Jalandhar',
   };
+  // List page only: some Education entries store the degree/major appended after " - " (unlike the
+  // clean Company/Designation split for Work Experience); this strips it before any short-name lookup.
+  function eduCollegeOnly(s) { return s.split(' - ')[0]; }
+  // Covers any "Indian Institute of Technology, X" / "[...] National Institute of Technology, X" entry
+  // generically, rather than requiring every campus to be hardcoded into SHORT_COLLEGE_NAMES above.
+  function genericShortCollege(college) {
+    let m = college.match(/^Indian Institute of Technology,?\s*(.+)$/i);
+    if (m) return 'IIT ' + m[1].trim();
+    m = college.match(/^.*?National Institute of Technology,?\s*(.+)$/i);
+    if (m) return 'NIT ' + m[1].trim();
+    return null;
+  }
+  function shortCollegeName(college) {
+    return SHORT_COLLEGE_NAMES[college] || genericShortCollege(college) || college;
+  }
   function shortEduMain(s) {
-    const short = SHORT_COLLEGE_NAMES[s];
-    return short ? `<span class="pm-flag" title="${s}">${short} <span class="pm-badge">SHORT NAME</span></span>` : s;
+    const college = eduCollegeOnly(s);
+    const short = shortCollegeName(college);
+    return short !== college
+      ? `<span class="pm-flag" title="${college}">${short} <span class="pm-badge">SHORT NAME</span></span>`
+      : college;
   }
   // Estimated Age display: always reads as an estimate, never a bare confident number.
   // Age-derivation logic itself is out of scope (data-team item) - every row is genuinely "Unknown" for now,
@@ -3907,7 +3920,7 @@
     if (!prior || !prior.main) return '';
     const main = companyNameOnly ? companyOnly(prior.main) : shortEduMain(prior.main);
     const extraList = prior.extra && prior.extra.length
-      ? (companyNameOnly ? prior.extra.map(companyOnly) : prior.extra.map(x => SHORT_COLLEGE_NAMES[x] || x))
+      ? (companyNameOnly ? prior.extra.map(companyOnly) : prior.extra.map(x => shortCollegeName(eduCollegeOnly(x))))
       : null;
     const badge = extraList
       ? `<span class="prior-badge">+${extraList.length}<span class="prior-tooltip">${extraList.join('<br>')}</span></span>`
@@ -3942,7 +3955,6 @@
         <td data-col="priorexp" class="prior-cell">${renderPriorCell(r.priorExp, true)}</td>
         <td data-col="prioredu" class="prior-cell">${renderPriorCell(r.priorEdu)}</td>
         <td data-col="age">${formatAge(r.age)}</td>
-        <td data-col="teambg">${r.teambg || '–'}</td>
         <td data-col="firstadded" class="first-added">${r.added}</td>
         <td data-col="country">${flagToCountry[r.flag] || '–'}</td>
         <td data-col="state">${r.state || '–'}</td>
@@ -4356,7 +4368,7 @@
   });
 
   // reset to default: restore the actual default visible-column set (not "check everything")
-  const DEFAULT_VISIBLE_COLS = ['name','location','foundedyear','stealthstart','highlights','priorexp','prioredu','age','teambg','firstadded'];
+  const DEFAULT_VISIBLE_COLS = ['name','location','foundedyear','stealthstart','highlights','priorexp','prioredu','age','firstadded'];
   document.getElementById('cc-reset').addEventListener('click', () => {
     document.querySelectorAll('.cc-check-row input[type="checkbox"][data-col]').forEach(cb => {
       cb.checked = DEFAULT_VISIBLE_COLS.includes(cb.dataset.col);
