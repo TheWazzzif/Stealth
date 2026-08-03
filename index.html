@@ -465,6 +465,7 @@
   .co-header h2{margin:0 0 5px;font-size:20px;display:flex;align-items:center;gap:8px;}
   .co-header .meta{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px;}
   .co-header-actions{display:flex;align-items:center;gap:10px;}
+  .co-summary{font-size:13px;color:#555;line-height:1.5;max-width:820px;}
   /* real Follow button text color is "regal-blue" #074373, not curious-blue #337ab7 - confirmed via reference-screens/*.html */
   .btn-follow{background:#fff;color:#074373;border:1px solid #074373;border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;}
   .btn-plain{background:#fff;color:#374151;border:1px solid var(--border);border-radius:6px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;}
@@ -523,6 +524,8 @@
   .highlight-tile.ht-green{background:#66bb6a26;}
   .highlight-tile.ht-blue{background:#337ab726;}
   .highlight-tile.ht-tan{background:#f7ca1826;}
+  .ht-via{display:block;font-size:10.5px;color:#7a7f87;font-style:italic;margin-top:3px;}
+  .ht-via .pm-badge{font-style:normal;}
 
   /* ---- Product-meeting round: every new/changed element flagged purple so Sr Mgmt can spot this round's
      diff without a verbal walkthrough. Same purple as Comment Mode (#6a3fd6, see #comment-mode-btn.active). ---- */
@@ -1262,6 +1265,7 @@
         <a>Team Background</a>
         <a class="pm-flag">Past Industry <span class="pm-badge">NEW</span></a>
         <a class="pm-flag">Estimated Industry <span class="pm-badge">NEW</span></a>
+        <a class="pm-flag">Estimated Age <span class="pm-badge">NEW</span></a>
       </div>
     </div>
 
@@ -1423,17 +1427,18 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-in"></span> Gurugram (India) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Yogesh is an investor building in stealth, with a top-tier company background spanning Meta, Google, and Apple, and a top-tier education from Stanford GSB and IIT Bombay.</div>
     </div>
 
     <div class="co-grid">
@@ -1450,7 +1455,6 @@
       <div>
         <div class="card" id="co-about-section" data-comment-id="company.yogesh.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Yogesh is an investor building in stealth, with a top-tier company background spanning Meta, Google, and Apple, and a top-tier education from Stanford GSB and IIT Bombay.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/yogesh-mahansaria" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/yogesh-mahansaria</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Yogesh M. <a class="in-icon" href="https://www.linkedin.com/in/yogesh-mahansaria" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~43 <span class="age-est-tag">est.</span></span></div></div>
@@ -1557,7 +1561,7 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-green"><span class="ht-icon">🏢</span><div><b>Top Company Background</b><span>Has worked at a top-tier company</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Meta <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-green"><span class="ht-icon">🏢</span><div><b>Top Company Background</b><span>Has worked at a top-tier company</span> <span class="ht-via">via Meta <span class="pm-badge">NEW</span></span></div></div>
           <div class="highlight-tile ht-blue"><span class="ht-icon">🎓</span><div><b>Top College Background</b><span>Studied at a top-tier college</span></div></div>
         </div>
       </div>
@@ -1586,17 +1590,18 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> Chicago (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Jon is a serial founder with prior IPO experience, now building his latest venture in stealth.</div>
     </div>
 
     <div class="co-grid">
@@ -1613,7 +1618,6 @@
       <div>
         <div class="card" id="jon-about-section" data-comment-id="company.jon.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Jon is a serial founder with prior IPO experience, now building his latest venture in stealth.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/jon-bauer-701a5434" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/jon-bauer-701a5434</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Jon Bauer <a class="in-icon" href="https://www.linkedin.com/in/jon-bauer-701a5434" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~34 <span class="age-est-tag">est.</span></span></div></div>
@@ -1743,8 +1747,8 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-green"><span class="ht-icon">📈</span><div><b>Prior IPO Experience</b><span>Has taken a company public previously</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Carbon Cash <span class="pm-badge">NEW</span></span></div></div>
-          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Carbon Cash <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-green"><span class="ht-icon">📈</span><div><b>Prior IPO Experience</b><span>Has taken a company public previously</span> <span class="ht-via">via Carbon Cash <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Carbon Cash <span class="pm-badge">NEW</span></span></div></div>
         </div>
       </div>
 
@@ -1772,17 +1776,18 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2026 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> San Francisco (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Hesam is a serial founder with an MBA from Stanford GSB, currently building in stealth.</div>
     </div>
 
     <div class="co-grid">
@@ -1799,7 +1804,6 @@
       <div>
         <div class="card" id="hesam-about-section" data-comment-id="company.hesam.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Hesam is a serial founder with an MBA from Stanford GSB, currently building in stealth.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/hesam-motlagh" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/hesam-motlagh</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Hesam Motlagh <a class="in-icon" href="https://www.linkedin.com/in/hesam-motlagh" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est age-est-unknown" title="Unknown - insufficient data to estimate">Unknown</span></div></div>
@@ -1953,7 +1957,7 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Drift <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Drift <span class="pm-badge">NEW</span></span></div></div>
         </div>
       </div>
 
@@ -1981,17 +1985,18 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> Brooklyn (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Gwendolyn is a serial founder with a prior company acquisition and $50M+ in funding raised, drawing on a media and creative-services background spanning Heads Of State NYC, Group Nine Media, and POPSUGAR.</div>
     </div>
 
     <div class="co-grid">
@@ -2008,7 +2013,6 @@
       <div>
         <div class="card" id="gwendolyn-about-section" data-comment-id="company.gwendolyn.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Gwendolyn is a serial founder with a prior company acquisition and $50M+ in funding raised, drawing on a media and creative-services background spanning Heads Of State NYC, Group Nine Media, and POPSUGAR.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/gwendolynrahn" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/gwendolynrahn</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Gwendolyn R. von Rahn <a class="in-icon" href="https://www.linkedin.com/in/gwendolynrahn" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est age-est-unknown" title="Unknown - insufficient data to estimate">Unknown</span></div></div>
@@ -2138,9 +2142,9 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-green"><span class="ht-icon">🤝</span><div><b>Prior Acquisition Experience</b><span>Has had a company acquired previously</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
-          <div class="highlight-tile ht-blue"><span class="ht-icon">🏆</span><div><b>$50M+ Club</b><span>Founded a company that raised $50M+</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
-          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-green"><span class="ht-icon">🤝</span><div><b>Prior Acquisition Experience</b><span>Has had a company acquired previously</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-blue"><span class="ht-icon">🏆</span><div><b>$50M+ Club</b><span>Founded a company that raised $50M+</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div></div>
         </div>
       </div>
 
@@ -2168,17 +2172,18 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2026 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> United States &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Sourabh is a serial founder with prior funding experience, with a background spanning fintech and e-commerce ventures including Dodo Payments and Pintel.</div>
     </div>
 
     <div class="co-grid">
@@ -2195,7 +2200,6 @@
       <div>
         <div class="card" id="sourabh-about-section" data-comment-id="company.sourabh.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Sourabh is a serial founder with prior funding experience, with a background spanning fintech and e-commerce ventures including Dodo Payments and Pintel.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/sourabhagrawal09" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/sourabhagrawal09</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Sourabh Agarwal <a class="in-icon" href="https://www.linkedin.com/in/sourabhagrawal09" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~39 <span class="age-est-tag">est.</span></span></div></div>
@@ -2330,8 +2334,8 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-blue"><span class="ht-icon">💰</span><div><b>Prior Funding</b><span>Founded a company that raised funding</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Dodo Payments <span class="pm-badge">NEW</span></span></div></div>
-          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Dodo Payments <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-blue"><span class="ht-icon">💰</span><div><b>Prior Funding</b><span>Founded a company that raised funding</span> <span class="ht-via">via Dodo Payments <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Dodo Payments <span class="pm-badge">NEW</span></span></div></div>
         </div>
       </div>
 
@@ -2359,17 +2363,18 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-in"></span> India &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
-          <button class="btn-follow">🔔 Follow <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">☆ Add to List</button>
-          <button class="btn-plain">⊞ Add to CRM <span class="try-tag">TRY</span></button>
-          <button class="btn-plain">➤ Connect</button>
-          <button class="btn-download">⬇ Download</button>
+          <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-regular fa-star"></i> Add to List</button>
+          <button class="btn-plain"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
+          <button class="btn-plain"><i class="fa-solid fa-paper-plane"></i> Connect</button>
+          <button class="btn-download"><i class="fa-solid fa-download"></i> Download</button>
           <div class="more-btn">⋯</div>
         </div>
       </div>
+      <div class="co-summary pm-flag" style="margin-top:14px;padding-left:80px;"><span class="pm-badge">NEW</span> Gyanesh is a serial founder in the $10M+ funding club, with prior experience across health-tech and AI ventures including UnitedHealth Group and Burpy AI.</div>
     </div>
 
     <div class="co-grid">
@@ -2386,7 +2391,6 @@
       <div>
         <div class="card" id="gyanesh-about-section" data-comment-id="company.gyanesh.about">
           <div class="card-head"><h3>About the Company</h3><div class="card-head-actions">⟳ ⋯</div></div>
-          <div class="field-row pm-flag"><div class="field-label">Summary <span class="pm-badge">NEW</span></div><div class="field-value">Gyanesh is a serial founder in the $10M+ funding club, with prior experience across health-tech and AI ventures including UnitedHealth Group and Burpy AI.</div></div>
           <div class="field-row"><div class="field-label">Website</div><div class="field-value"><a href="https://www.linkedin.com/in/gyanesh-kumar-ba394a150" target="_blank" rel="noopener noreferrer">www.linkedin.com/in/gyanesh-kumar-ba394a150</a></div></div>
           <div class="field-row"><div class="field-label">Key People</div><div class="field-value">Gyanesh Kumar <a class="in-icon" href="https://www.linkedin.com/in/gyanesh-kumar-ba394a150" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
           <div class="field-row pm-flag"><div class="field-label">Estimated Age <span class="pm-badge">NEW</span></div><div class="field-value"><span class="age-est" title="Estimated from undergraduate graduation year">~27 <span class="age-est-tag">est.</span></span></div></div>
@@ -2517,8 +2521,8 @@
 
         <div class="card" style="margin:0;">
           <h3 style="margin:0 0 12px;font-size:14px;" class="pm-flag">Key Highlights <span class="pm-badge">RENAMED</span></h3>
-          <div class="highlight-tile ht-blue"><span class="ht-icon">🏆</span><div><b>$10M+ Club</b><span>Founded a company that raised $10M+</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Burpy AI <span class="pm-badge">NEW</span></span></div></div>
-          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Burpy AI <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-blue"><span class="ht-icon">🏆</span><div><b>$10M+ Club</b><span>Founded a company that raised $10M+</span> <span class="ht-via">via Burpy AI <span class="pm-badge">NEW</span></span></div></div>
+          <div class="highlight-tile ht-tan"><span class="ht-icon">🔑</span><div><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Burpy AI <span class="pm-badge">NEW</span></span></div></div>
         </div>
       </div>
 
@@ -2543,7 +2547,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -2571,8 +2575,8 @@
       <div>
         <div class="card" id="jonf-highlights-section" data-comment-id="founder.jon.highlights">
           <div class="card-head"><h3>Key Highlights <span class="qa-new">NEW</span></h3></div>
-          <div class="highlight-pill"><b>Prior IPO Experience</b><span>Founded a company that went public</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Carbon Cash <span class="pm-badge">NEW</span></span></div>
-          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Carbon Cash <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Prior IPO Experience</b><span>Founded a company that went public</span> <span class="ht-via">via Carbon Cash <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Carbon Cash <span class="pm-badge">NEW</span></span></div>
         </div>
 
         <div class="card" id="jonf-about-section" data-comment-id="founder.jon.about">
@@ -2698,7 +2702,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -2726,7 +2730,7 @@
       <div>
         <div class="card" id="hesamf-highlights-section" data-comment-id="founder.hesam.highlights">
           <div class="card-head"><h3>Key Highlights <span class="qa-new">NEW</span></h3></div>
-          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Drift <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Drift <span class="pm-badge">NEW</span></span></div>
         </div>
 
         <div class="card" id="hesamf-about-section" data-comment-id="founder.hesam.about">
@@ -2867,7 +2871,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -2895,9 +2899,9 @@
       <div>
         <div class="card" id="gwendolynf-highlights-section" data-comment-id="founder.gwendolyn.highlights">
           <div class="card-head"><h3>Key Highlights <span class="qa-new">NEW</span></h3></div>
-          <div class="highlight-pill"><b>Prior Acquisition Experience</b><span>Has had a company acquired previously</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
-          <div class="highlight-pill"><b>$50M+ Club</b><span>Founded a company that raised $50M+</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
-          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Prior Acquisition Experience</b><span>Has had a company acquired previously</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>$50M+ Club</b><span>Founded a company that raised $50M+</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Heads Of State NYC <span class="pm-badge">NEW</span></span></div>
         </div>
 
         <div class="card" id="gwendolynf-about-section" data-comment-id="founder.gwendolyn.about">
@@ -3025,7 +3029,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -3053,8 +3057,8 @@
       <div>
         <div class="card" id="sourabhf-highlights-section" data-comment-id="founder.sourabh.highlights">
           <div class="card-head"><h3>Key Highlights <span class="qa-new">NEW</span></h3></div>
-          <div class="highlight-pill"><b>Prior Funding</b><span>Founded a company that raised funding</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Dodo Payments <span class="pm-badge">NEW</span></span></div>
-          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Dodo Payments <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Prior Funding</b><span>Founded a company that raised funding</span> <span class="ht-via">via Dodo Payments <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Dodo Payments <span class="pm-badge">NEW</span></span></div>
         </div>
 
         <div class="card" id="sourabhf-about-section" data-comment-id="founder.sourabh.about">
@@ -3181,7 +3185,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -3209,8 +3213,8 @@
       <div>
         <div class="card" id="gyaneshf-highlights-section" data-comment-id="founder.gyanesh.highlights">
           <div class="card-head"><h3>Key Highlights <span class="qa-new">NEW</span></h3></div>
-          <div class="highlight-pill"><b>$10M+ Club</b><span>Founded a company that raised $10M+</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Burpy AI <span class="pm-badge">NEW</span></span></div>
-          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Burpy AI <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>$10M+ Club</b><span>Founded a company that raised $10M+</span> <span class="ht-via">via Burpy AI <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Serial Founder</b><span>Founded multiple companies</span> <span class="ht-via">via Burpy AI <span class="pm-badge">NEW</span></span></div>
         </div>
 
         <div class="card" id="gyaneshf-about-section" data-comment-id="founder.gyanesh.about">
@@ -3336,7 +3340,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn-crm">⊞ Add to CRM <span class="try-tag">TRY</span></button>
+        <button class="btn-crm"><i class="fa-solid fa-table-cells"></i> Add to CRM <span class="try-tag">TRY</span></button>
         <div class="more-btn">⋯</div>
       </div>
     </div>
@@ -3364,7 +3368,7 @@
       <div>
         <div class="card pm-flag" id="highlights-section" data-comment-id="founder.yogesh.highlights">
           <div class="card-head"><h3>Key Highlights <span class="pm-badge">NEW</span></h3></div>
-          <div class="highlight-pill"><b>Top Company Background</b><span>Has worked at a top-tier company</span> <span class="mini-pill pm-flag" style="margin-top:3px;">via Meta <span class="pm-badge">NEW</span></span></div>
+          <div class="highlight-pill"><b>Top Company Background</b><span>Has worked at a top-tier company</span> <span class="ht-via">via Meta <span class="pm-badge">NEW</span></span></div>
           <div class="highlight-pill"><b>Top College Background</b><span>Studied at a top-tier college</span></div>
         </div>
 
