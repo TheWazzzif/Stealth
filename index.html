@@ -340,6 +340,8 @@
   .co-avatar img{width:100%;height:100%;object-fit:cover;}
   .stealth-pill{background:#eef1f6;color:#555;font-size:10.5px;padding:2px 8px;border-radius:10px;margin-left:4px;display:inline-flex;align-items:center;gap:3px;}
   .mini-pill{background:var(--blue-light);color:var(--blue);font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px;margin-right:4px;white-space:nowrap;display:inline-block;}
+  /* the pale blue-light default reads as plain link text in the Key Highlights list column; darken just there so highlight tags stay visually distinct from the plain-link columns beside them */
+  td[data-col="highlights"] .mini-pill{background:#d3e4fb;}
 
   /* Prior Education / Prior Experience columns - visual format is a best guess (no reference screenshot
      was available), flag anything that doesn't match once compared. */
