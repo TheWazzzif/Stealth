@@ -1427,7 +1427,7 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-in"></span> Gurugram (India) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -1590,7 +1590,7 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> Chicago (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -1776,7 +1776,7 @@
           <div class="counter-badge">11</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2026 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> San Francisco (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -1985,7 +1985,7 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> Brooklyn (United States) &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -2172,7 +2172,7 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2026 &nbsp;|&nbsp; <span class="flag-icon flag-icon-us"></span> United States &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -2363,7 +2363,7 @@
           <div class="counter-badge">17</div>
         </div>
       </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-left:80px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-left:80px;">
         <div class="meta">2025 &nbsp;|&nbsp; <span class="flag-icon flag-icon-in"></span> India &nbsp;|&nbsp; Stealth</div>
         <div class="co-header-actions">
           <button class="btn-follow"><i class="fa-solid fa-bell"></i> Follow <span class="try-tag">TRY</span></button>
@@ -3687,7 +3687,19 @@
   });
 
   // ---- View switching ----
-  function showView(view) {
+  const VALID_VIEWS = ['home','list','company','company-jon','company-hesam','company-gwendolyn','company-sourabh','company-gyanesh','profile','founder-jon','founder-hesam','founder-gwendolyn','founder-sourabh','founder-gyanesh'];
+  // Extra hashes that resolve to an existing view but aren't its canonical/address-bar form (e.g. Yogesh's
+  // views are unsuffixed internally - 'company' and 'profile' - these let #company-yogesh/#founder-yogesh
+  // still work as shareable URLs without becoming what the address bar shows once you're on that screen).
+  const HASH_ALIASES = { '': 'home', 'company-yogesh': 'company', 'founder-yogesh': 'profile' };
+  function hashToView(hash) {
+    const h = (hash || '').replace(/^#/, '');
+    if (HASH_ALIASES.hasOwnProperty(h)) return HASH_ALIASES[h];
+    return VALID_VIEWS.includes(h) ? h : 'home';
+  }
+  function showView(view, opts) {
+    opts = opts || {};
+    if (!VALID_VIEWS.includes(view)) view = 'home';
     document.getElementById('home-view').style.display = view === 'home' ? 'block' : 'none';
     document.querySelector('.gs-widget').style.display = view === 'home' ? 'flex' : 'none';
     document.getElementById('list-view').style.display = view === 'list' ? 'block' : 'none';
@@ -3705,7 +3717,33 @@
     document.getElementById('founder-view-sourabh').style.display = view === 'founder-sourabh' ? 'block' : 'none';
     document.getElementById('founder-view-gyanesh').style.display = view === 'founder-gyanesh' ? 'block' : 'none';
     window.scrollTo(0,0);
+    // Keep the address bar in sync so the current URL always reopens to this exact screen. Skipped when
+    // called from the initial hash read or a popstate (back/forward) - the URL already reflects those.
+    if (!opts.skipHistory) {
+      const targetHash = '#' + view;
+      if (window.location.hash !== targetHash) {
+        history.pushState({ view: view }, '', targetHash);
+      }
+    }
   }
+
+  // Shared by initial load, hashchange, and popstate: show whatever view the hash resolves to, then
+  // normalize the address bar to that view's canonical hash (e.g. #company-yogesh -> #company) without
+  // adding a new history entry.
+  function syncViewToHash() {
+    const view = hashToView(window.location.hash);
+    showView(view, { skipHistory: true });
+    const canonicalHash = '#' + view;
+    if (window.location.hash !== canonicalHash) {
+      history.replaceState({ view: view }, '', canonicalHash);
+    }
+  }
+  syncViewToHash();
+  // Back/forward: the browser already changed the URL, just sync the DOM to match.
+  window.addEventListener('popstate', syncViewToHash);
+  // Someone edits/pastes just the hash while the page is already open (no full reload, so the line
+  // above doesn't run again) - hashchange is what fires for that, not popstate.
+  window.addEventListener('hashchange', syncViewToHash);
 
   document.getElementById('stealth-qa-card').addEventListener('click', () => showView('list'));
   document.querySelectorAll('.iconrail .icon').forEach(icon => {
@@ -3964,7 +4002,8 @@
     });
   });
 
-  showView('home');
+  // Initial view is set by initViewFromHash() (near showView's definition) based on window.location.hash,
+  // not unconditionally to 'home' - this line used to force 'home' and would clobber that.
 
 
 
