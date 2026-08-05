@@ -1474,7 +1474,7 @@
             <th data-col="location">Location</th>
             <th data-col="foundedyear">Founded Year</th>
             <th data-col="stealthstart">Stealth Start Date</th>
-            <th data-col="summary" class="pm-flag">About / Summary <span class="pm-badge">NEW</span></th>
+            <th data-col="summary" class="pm-flag">Summary <span class="pm-badge">NEW</span></th>
             <th data-col="highlights" class="pm-flag">Key Highlights <span style="background:#ffdf6b;color:#7a5b00;font-size:8.5px;font-weight:800;padding:1px 4px;border-radius:3px;">NEW</span><span class="pm-badge">RENAMED</span></th>
             <th data-col="priorexp" class="pm-flag">People Past Work Experience <span class="pm-badge">RENAMED</span></th>
             <th data-col="prioredu" class="pm-flag">People Education <span class="pm-badge">RENAMED</span></th>
@@ -1848,7 +1848,7 @@
         <div class="cc-group" data-group="other">
           <div class="cc-group-head"><input type="checkbox" checked disabled> Other Company Data <span style="margin-left:auto;">⌃</span></div>
           <div class="cc-group-items">
-            <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="summary"> About / Summary <span class="pm-badge">NEW</span></label>
+            <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="summary"> Summary <span class="pm-badge">NEW</span></label>
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="pastindustry"> Past Industry <span class="pm-badge">NEW</span></label>
             <label class="cc-check-row pm-flag"><input type="checkbox" checked data-col="estindustry"> Estimated Industry <span class="pm-badge">NEW</span></label>
             <label class="cc-check-row"><input type="checkbox" checked data-col="firstadded"> First Added Date</label>
@@ -1864,7 +1864,7 @@
           <div class="cc-reorder-item" data-col="location"><span class="handle">⣿</span> Location <span class="remove">✕</span></div>
           <div class="cc-reorder-item" data-col="foundedyear"><span class="handle">⣿</span> Founded Year <span class="remove">✕</span></div>
           <div class="cc-reorder-item" data-col="stealthstart"><span class="handle">⣿</span> Stealth Start Date <span class="remove">✕</span></div>
-          <div class="cc-reorder-item pm-flag" data-col="summary"><span class="handle">⣿</span> About / Summary <span class="pm-badge">NEW</span> <span class="remove">✕</span></div>
+          <div class="cc-reorder-item pm-flag" data-col="summary"><span class="handle">⣿</span> Summary <span class="pm-badge">NEW</span> <span class="remove">✕</span></div>
           <div class="cc-reorder-item pm-flag" data-col="highlights"><span class="handle">⣿</span> Key Highlights <span class="pm-badge">RENAMED</span> <span class="remove">✕</span></div>
           <div class="cc-reorder-item pm-flag" data-col="priorexp"><span class="handle">⣿</span> People Past Work Experience <span class="pm-badge">RENAMED</span> <span class="remove">✕</span></div>
           <div class="cc-reorder-item pm-flag" data-col="prioredu"><span class="handle">⣿</span> People Education <span class="pm-badge">RENAMED</span> <span class="remove">✕</span></div>
@@ -4067,18 +4067,18 @@
             <span class="dots">⋯</span>
           </div>
         </td>
-        <td data-col="designation" class="pm-flag" style="display:none;">${r.name.split(' - ')[1] || '–'}</td>
+        <td data-col="designation" style="display:none;">${r.name.split(' - ')[1] || '–'}</td>
         <td data-col="location">${flagIconHtml(r.flag)} ${r.loc}</td>
         <td data-col="foundedyear">${r.founded}</td>
         <td data-col="stealthstart">${r.start}</td>
-        <td data-col="summary" class="pm-flag">${r.summary || '–'}</td>
+        <td data-col="summary">${r.summary || '–'}</td>
         <td data-col="highlights">${highlightCell}</td>
         <td data-col="priorexp" class="prior-cell">${renderPriorCell(r.priorExp, true)}</td>
         <td data-col="prioredu" class="prior-cell">${renderPriorCell(r.priorEdu)}</td>
-        <td data-col="collegelocation" class="pm-flag" style="display:none;">${r.collegeLocation || '–'}</td>
+        <td data-col="collegelocation" style="display:none;">${r.collegeLocation || '–'}</td>
         <td data-col="age">${formatAge(r.age)}</td>
-        <td data-col="pastindustry" class="pm-flag">${r.pastIndustry || '–'}</td>
-        <td data-col="estindustry" class="pm-flag">${r.estIndustry || '–'}</td>
+        <td data-col="pastindustry">${r.pastIndustry || '–'}</td>
+        <td data-col="estindustry">${r.estIndustry || '–'}</td>
         <td data-col="firstadded" class="first-added">${r.added}</td>
         <td data-col="country">${flagToCountry[r.flag] || '–'}</td>
         <td data-col="state">${r.state || '–'}</td>
