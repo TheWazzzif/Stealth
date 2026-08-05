@@ -1478,7 +1478,7 @@
       <table class="stealth-table density-comfortable" id="stealth-table">
         <colgroup id="stealth-table-colgroup">
           <col data-col="checkbox">
-          <col data-col="star">
+          <col data-col="rownum">
           <col data-col="name">
           <col data-col="designation">
           <col data-col="location">
@@ -1502,8 +1502,8 @@
         </colgroup>
         <thead>
           <tr>
-            <th></th>
-            <th></th>
+            <th data-col="checkbox"></th>
+            <th data-col="rownum"></th>
             <th data-col="name">Company Name</th>
             <th data-col="designation" class="pm-flag" style="display:none;">Designation <span class="pm-badge">NEW</span></th>
             <th data-col="location">Location</th>
@@ -4196,6 +4196,10 @@
   const stealthTableEl = document.getElementById('stealth-table');
   const stealthColgroup = document.getElementById('stealth-table-colgroup');
   const COL_RESIZE_MIN_WIDTH = 50;
+  // Summary's natural content is a single long unwrapped sentence, so its measured "natural" width
+  // would balloon to 1000px+ and dwarf every other column - give it a sane fixed starting width
+  // instead (still freely resizable afterward like any other column).
+  const FIXED_DEFAULT_COL_WIDTHS = { summary: 220 };
   let columnWidthsLocked = false;
   function lockInitialColumnWidths() {
     if (columnWidthsLocked) return;
@@ -4204,7 +4208,8 @@
     document.querySelectorAll('#stealth-table thead th[data-col]').forEach(th => {
       const col = stealthColgroup.querySelector(`col[data-col="${th.dataset.col}"]`);
       if (!col) return;
-      col.style.width = th.getBoundingClientRect().width + 'px';
+      const fixedWidth = FIXED_DEFAULT_COL_WIDTHS[th.dataset.col];
+      col.style.width = (fixedWidth || th.getBoundingClientRect().width) + 'px';
     });
     stealthTableEl.classList.add('cols-locked');
   }
